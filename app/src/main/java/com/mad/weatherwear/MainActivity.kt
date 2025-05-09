@@ -1,5 +1,4 @@
 package com.mad.weatherwear
-
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -8,7 +7,6 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -23,6 +21,10 @@ import com.google.android.gms.location.LocationServices
 import com.mad.weatherwear.screens.authentication.AuthViewModel
 import com.mad.weatherwear.screens.authentication.SignInScreen
 import com.mad.weatherwear.screens.authentication.SignUpScreen
+import com.mad.weatherwear.screens.home.HomeScreen
+import com.mad.weatherwear.screens.outfit.OutfitScreen
+import com.mad.weatherwear.screens.profile.ProfileScreen
+import com.mad.weatherwear.screens.weather.WeatherScreen
 import com.mad.weatherwear.shared.location.LocationService
 import com.mad.weatherwear.ui.theme.WeatherWearTheme
 
@@ -30,7 +32,6 @@ class MainActivity : ComponentActivity() {
     private lateinit var mapsClient: FusedLocationProviderClient
     private lateinit var locationService: LocationService
     private val authViewModel: AuthViewModel by viewModels()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -88,63 +89,24 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                         composable(Screen.Home.route) {
-                            HomeScreen() // Replace with actual user name or data
+                            HomeScreen()
                         }
                         composable(Screen.Profile.route) {
-                            // Replace with your ProfileScreen composable
                             ProfileScreen()
                         }
 
                         composable(Screen.Weather.route) {
-                            // Replace with your WeatherScreen composable
                             WeatherScreen()
                         }
 
                         composable(Screen.Outfit.route) {
-                            // Replace with your OutfitScreen composable
                             OutfitScreen()
                         }
-                        // Add other destinations here
                     }
                 }
             }
         }
     }
-}
-
-@Composable
-fun HomeScreen(modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello",
-        modifier = modifier
-    )
-}
-
-// Placeholder for ProfileScreen - replace with your actual screen
-@Composable
-fun ProfileScreen(modifier: Modifier = Modifier) {
-    Text(
-        text = "Profile Screen",
-        modifier = modifier
-    )
-}
-
-// Placeholder for WeatherScreen - replace with your actual screen
-@Composable
-fun WeatherScreen(modifier: Modifier = Modifier) {
-    Text(
-        text = "Weather Screen",
-        modifier = modifier
-    )
-}
-
-// Placeholder for OutfitScreen - replace with your actual screen
-@Composable
-fun OutfitScreen(modifier: Modifier = Modifier) {
-    Text(
-        text = "Outfit Screen",
-        modifier = modifier
-    )
 }
 
 @Preview(showBackground = true)
