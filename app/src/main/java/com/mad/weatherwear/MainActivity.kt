@@ -11,11 +11,24 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import com.mad.weatherwear.service.location.LocationService
 import com.mad.weatherwear.ui.theme.WeatherWearTheme
 
 class MainActivity : ComponentActivity() {
+    private lateinit var mapsClient: FusedLocationProviderClient
+    private lateinit var locationService: LocationService
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        mapsClient = LocationServices.getFusedLocationProviderClient(this)
+        locationService = LocationService(this, mapsClient)
+        locationService.requestPermission()
+
+
         enableEdgeToEdge()
         setContent {
             WeatherWearTheme {
