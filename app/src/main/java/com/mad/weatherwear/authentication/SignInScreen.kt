@@ -31,8 +31,8 @@ fun SignInScreen(
     onNavigateToSignUp: () -> Unit,
     onSignInSuccess: () -> Unit
 ) {
-    var emailInput by remember { mutableStateOf("test@example.com") }
-    var passwordInput by remember { mutableStateOf("Password123") }
+    var emailInput by remember { mutableStateOf("testmail@uni.au.dk") }
+    var passwordInput by remember { mutableStateOf("Test1234") }
     var formErrorMessage by remember { mutableStateOf<String?>(null) }
 
     val authError by authViewModel.authError.collectAsState()
