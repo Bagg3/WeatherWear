@@ -1,8 +1,6 @@
-package com.mad.weatherwear.service.preference
+package com.mad.weatherwear.shared.preference
 
 import com.google.firebase.firestore.FirebaseFirestore
-import com.mad.weatherwear.model.preference.domain.Preference
-import com.mad.weatherwear.model.preference.firestore.PreferenceFS
 import kotlinx.coroutines.tasks.await
 
 class FireStorePreferenceService : PreferenceService {

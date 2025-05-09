@@ -2,7 +2,6 @@ package com.mad.weatherwear.authentication
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mad.weatherwear.service.authentication.AuthenticationService
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch

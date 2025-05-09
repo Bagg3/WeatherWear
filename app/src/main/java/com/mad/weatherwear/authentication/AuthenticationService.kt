@@ -1,11 +1,6 @@
-package com.mad.weatherwear.service.authentication
+package com.mad.weatherwear.authentication
 
 import com.google.firebase.auth.FirebaseAuth
-import com.mad.weatherwear.authentication.AuthResult
-import com.mad.weatherwear.authentication.Email
-import com.mad.weatherwear.authentication.Password
-import com.mad.weatherwear.authentication.Status
-import com.mad.weatherwear.authentication.User
 import kotlinx.coroutines.tasks.await
 
 class AuthenticationService {

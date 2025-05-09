@@ -1,4 +1,4 @@
-package com.mad.weatherwear.service.location
+package com.mad.weatherwear.shared.location
 
 import android.Manifest
 import android.content.pm.PackageManager

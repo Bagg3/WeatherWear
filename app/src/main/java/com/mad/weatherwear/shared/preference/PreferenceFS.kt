@@ -1,4 +1,4 @@
-package com.mad.weatherwear.model.preference.firestore
+package com.mad.weatherwear.shared.preference
 
 import com.google.firebase.firestore.DocumentId
 
