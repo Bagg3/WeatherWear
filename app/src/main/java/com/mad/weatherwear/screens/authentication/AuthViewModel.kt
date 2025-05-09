@@ -1,4 +1,4 @@
-package com.mad.weatherwear.authentication
+package com.mad.weatherwear.screens.authentication
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

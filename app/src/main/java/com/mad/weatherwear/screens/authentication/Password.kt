@@ -1,4 +1,4 @@
-package com.mad.weatherwear.authentication
+package com.mad.weatherwear.screens.authentication
 
 data class Password(val value: String) {
 

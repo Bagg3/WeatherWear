@@ -1,4 +1,4 @@
-package com.mad.weatherwear.authentication
+package com.mad.weatherwear.screens.authentication
 
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.tasks.await

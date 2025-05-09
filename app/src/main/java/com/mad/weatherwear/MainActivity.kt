@@ -20,9 +20,9 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import com.mad.weatherwear.authentication.AuthViewModel
-import com.mad.weatherwear.authentication.SignInScreen
-import com.mad.weatherwear.authentication.SignUpScreen
+import com.mad.weatherwear.screens.authentication.AuthViewModel
+import com.mad.weatherwear.screens.authentication.SignInScreen
+import com.mad.weatherwear.screens.authentication.SignUpScreen
 import com.mad.weatherwear.shared.location.LocationService
 import com.mad.weatherwear.ui.theme.WeatherWearTheme
 

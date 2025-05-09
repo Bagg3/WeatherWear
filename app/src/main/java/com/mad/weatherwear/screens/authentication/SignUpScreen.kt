@@ -1,4 +1,4 @@
-package com.mad.weatherwear.authentication
+package com.mad.weatherwear.screens.authentication
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
