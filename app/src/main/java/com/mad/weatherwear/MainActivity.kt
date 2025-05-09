@@ -40,7 +40,6 @@ class MainActivity : ComponentActivity() {
         locationService = LocationService(this, mapsClient)
         locationService.requestPermission()
 
-
         enableEdgeToEdge()
         setContent {
             WeatherWearTheme {
