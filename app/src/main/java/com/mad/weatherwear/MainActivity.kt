@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -45,11 +46,23 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 val currentUser by authViewModel.currentUser.collectAsState()
 
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                // Determine the start destination based on login state
+                val startDestination = if (currentUser == null) "signin" else Screen.Home.route
+
+                Scaffold(
+                    modifier = Modifier.fillMaxSize(),
+                    bottomBar = {
+                        // Show BottomNavigationBar only if the user is logged in and not on auth screens
+                        val navBackStackEntry by navController.currentBackStackEntryAsState()
+                        val currentRoute = navBackStackEntry?.destination?.route
+                        if (currentUser != null && currentRoute != "signin" && currentRoute != "signup") {
+                            AppBottomNavigationBar(navController = navController)
+                        }
+                    }
+                ) { innerPadding ->
                     NavHost(
                         navController = navController,
-                        // Start destination depends on whether a user is logged in
-                        startDestination = if (currentUser == null) "signin" else "greeting",
+                        startDestination = startDestination,
                         modifier = Modifier.padding(innerPadding)
                     ) {
                         composable("signin") {
@@ -57,8 +70,8 @@ class MainActivity : ComponentActivity() {
                                 authViewModel = authViewModel,
                                 onNavigateToSignUp = { navController.navigate("signup") },
                                 onSignInSuccess = {
-                                    navController.navigate("greeting") {
-                                        popUpTo("signin") { inclusive = true } // Clear back stack
+                                    navController.navigate(Screen.Home.route) {
+                                        popUpTo("signin") { inclusive = true }
                                     }
                                 }
                             )
@@ -68,14 +81,28 @@ class MainActivity : ComponentActivity() {
                                 authViewModel = authViewModel,
                                 onNavigateToSignIn = { navController.navigate("signin") },
                                 onSignUpSuccess = {
-                                    navController.navigate("greeting") {
-                                        popUpTo("signin") { inclusive = true } // Clear back stack
+                                    navController.navigate(Screen.Home.route) {
+                                        popUpTo("signin") { inclusive = true }
                                     }
                                 }
                             )
                         }
-                        composable("greeting") {
-                            Greeting(name = "Android")
+                        composable(Screen.Home.route) {
+                            HomeScreen() // Replace with actual user name or data
+                        }
+                        composable(Screen.Profile.route) {
+                            // Replace with your ProfileScreen composable
+                            ProfileScreen()
+                        }
+
+                        composable(Screen.Weather.route) {
+                            // Replace with your WeatherScreen composable
+                            WeatherScreen()
+                        }
+
+                        composable(Screen.Outfit.route) {
+                            // Replace with your OutfitScreen composable
+                            OutfitScreen()
                         }
                         // Add other destinations here
                     }
@@ -86,9 +113,36 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
+fun HomeScreen(modifier: Modifier = Modifier) {
     Text(
-        text = "Hello $name!",
+        text = "Hello",
+        modifier = modifier
+    )
+}
+
+// Placeholder for ProfileScreen - replace with your actual screen
+@Composable
+fun ProfileScreen(modifier: Modifier = Modifier) {
+    Text(
+        text = "Profile Screen",
+        modifier = modifier
+    )
+}
+
+// Placeholder for WeatherScreen - replace with your actual screen
+@Composable
+fun WeatherScreen(modifier: Modifier = Modifier) {
+    Text(
+        text = "Weather Screen",
+        modifier = modifier
+    )
+}
+
+// Placeholder for OutfitScreen - replace with your actual screen
+@Composable
+fun OutfitScreen(modifier: Modifier = Modifier) {
+    Text(
+        text = "Outfit Screen",
         modifier = modifier
     )
 }
@@ -97,6 +151,6 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 @Composable
 fun GreetingPreview() {
     WeatherWearTheme {
-        Greeting("Android")
+        HomeScreen( )
     }
 }
