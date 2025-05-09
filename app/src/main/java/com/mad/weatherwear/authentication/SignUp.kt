@@ -1,4 +1,4 @@
-package com.mad.weatherwear.ui
+package com.mad.weatherwear.authentication
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -17,8 +17,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import com.mad.weatherwear.authentication.Email
-import com.mad.weatherwear.authentication.Password
 
 @Composable
 fun SignUp(signUp: (email: Email, password: Password) -> Unit) {
