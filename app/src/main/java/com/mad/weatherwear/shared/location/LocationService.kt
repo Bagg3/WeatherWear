@@ -4,9 +4,9 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationRequest
+import android.os.Build
 import android.util.Log
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import kotlin.coroutines.resume
@@ -16,28 +16,23 @@ class LocationService(
     private val context: androidx.activity.ComponentActivity,
     private val client: FusedLocationProviderClient,
 ) {
-    private var locationOn: Boolean = false
-    private var launcher: ActivityResultLauncher<String> = context.registerForActivityResult(ActivityResultContracts.RequestPermission()) {
-        locationOn = it
-        Log.v("CALLBACK", "GRANTED=$it")
-    }
 
+    @RequiresApi(Build.VERSION_CODES.S)
     suspend fun getCurrentLocation(): Location {
-
         return suspendCoroutine { continuation ->
             try {
-
                 client.getCurrentLocation(LocationRequest.QUALITY_HIGH_ACCURACY, null)
                     .addOnSuccessListener {
                         continuation.resume(it)
                     }.addOnFailureListener {
-                        Log.v(this::class.qualifiedName, "The Loccation requast failed")
+                        Log.v(this::class.qualifiedName, "The Location request failed")
+                        it.printStackTrace()
                     }
             } catch (e: SecurityException) {
-                Log.v(this::class.qualifiedName, "The Loccation requast failed")
+                Log.v(this::class.qualifiedName, "The Location request failed")
                 e.printStackTrace()
+                throw e
             }
-
         }
     }
 
@@ -46,9 +41,5 @@ class LocationService(
             context,
             Manifest.permission.ACCESS_FINE_LOCATION
         )
-    }
-
-    fun requestPermission() {
-        launcher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
     }
 }

@@ -1,4 +1,5 @@
 package com.mad.weatherwear
+
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -16,8 +17,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
 import com.mad.weatherwear.screens.authentication.AuthViewModel
 import com.mad.weatherwear.screens.authentication.SignInScreen
 import com.mad.weatherwear.screens.authentication.SignUpScreen
@@ -25,20 +24,14 @@ import com.mad.weatherwear.screens.home.HomeScreen
 import com.mad.weatherwear.screens.outfit.OutfitScreen
 import com.mad.weatherwear.screens.profile.ProfileScreen
 import com.mad.weatherwear.screens.weather.WeatherScreen
-import com.mad.weatherwear.shared.location.LocationService
 import com.mad.weatherwear.ui.theme.WeatherWearTheme
 
 class MainActivity : ComponentActivity() {
-    private lateinit var mapsClient: FusedLocationProviderClient
-    private lateinit var locationService: LocationService
     private val authViewModel: AuthViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        mapsClient = LocationServices.getFusedLocationProviderClient(this)
-        locationService = LocationService(this, mapsClient)
-        locationService.requestPermission()
 
 
         enableEdgeToEdge()
@@ -113,6 +106,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun GreetingPreview() {
     WeatherWearTheme {
-        HomeScreen( )
+        HomeScreen()
     }
 }
