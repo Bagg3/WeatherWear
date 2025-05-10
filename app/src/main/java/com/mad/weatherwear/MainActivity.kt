@@ -13,6 +13,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -24,11 +25,12 @@ import com.mad.weatherwear.screens.home.HomeScreen
 import com.mad.weatherwear.screens.outfit.OutfitScreen
 import com.mad.weatherwear.screens.profile.ProfileScreen
 import com.mad.weatherwear.screens.weather.WeatherScreen
+import com.mad.weatherwear.screens.weather.WeatherViewModel
 import com.mad.weatherwear.ui.theme.WeatherWearTheme
 
 class MainActivity : ComponentActivity() {
     private val authViewModel: AuthViewModel by viewModels()
-
+    private val weatherViewModel: WeatherViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -38,7 +40,6 @@ class MainActivity : ComponentActivity() {
             WeatherWearTheme {
                 val navController = rememberNavController()
                 val currentUser by authViewModel.currentUser.collectAsState()
-
                 // Determine the start destination based on login state
                 val startDestination = if (currentUser == null) "signin" else Screen.Home.route
 
@@ -81,14 +82,14 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                         composable(Screen.Home.route) {
-                            HomeScreen()
+                            HomeScreen(weatherViewModel = weatherViewModel)
                         }
                         composable(Screen.Profile.route) {
                             ProfileScreen()
                         }
 
                         composable(Screen.Weather.route) {
-                            WeatherScreen()
+                            WeatherScreen(viewModel = weatherViewModel)
                         }
 
                         composable(Screen.Outfit.route) {
@@ -99,12 +100,13 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+    
 }
 
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     WeatherWearTheme {
-        HomeScreen()
+        HomeScreen(weatherViewModel = viewModel<WeatherViewModel>())
     }
 }

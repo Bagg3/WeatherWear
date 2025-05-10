@@ -18,9 +18,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import coil3.compose.AsyncImage
 import com.mad.weatherwear.R
 import com.mad.weatherwear.ui.theme.Accent
 import com.mad.weatherwear.ui.theme.BgPrimary
@@ -35,6 +37,7 @@ fun ScreenLayout(
     titleText: String,
     temperatureText: String,
     weatherConditionText: String,
+    imageId: String? = null,
     dynamicContent: @Composable ColumnScope.() -> Unit
 ) {
     Box(
@@ -62,13 +65,22 @@ fun ScreenLayout(
                     .align(Alignment.Center)
                     .background(color = Accent, shape = CircleShape)
             ) {
-                Image(
-                    painter = painterResource(id = R.drawable.avatar),
-                    contentDescription = "Avatar",
-                    modifier = Modifier
-                        .fillMaxSize(0.95f)
-                        .align(Alignment.Center)
-                )
+                if (imageId == null) {
+                    Image(
+                        painter = painterResource(id = R.drawable.avatar),
+                        contentDescription = "Avatar",
+                        modifier = Modifier
+                            .fillMaxSize(0.95f)
+                            .align(Alignment.Center)
+                    )
+                } else {
+                    AsyncImage(
+                        model = "https://openweathermap.org/img/wn/${imageId}@2x.png",
+                        contentDescription = "Weather Icon",
+                        modifier = Modifier.size(40.dp),
+                        contentScale = ContentScale.Fit
+                    )
+                }
             }
 
             Column(
@@ -95,7 +107,7 @@ fun ScreenLayout(
                 ) {
                     Text(
                         text = temperatureText,
-                        style = Typography.titleLarge,
+                        style = Typography.bodyLarge,
                         color = TextPrimary,
                         textAlign = TextAlign.Center,
                     )
