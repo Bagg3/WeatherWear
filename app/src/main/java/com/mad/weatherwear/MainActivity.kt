@@ -8,17 +8,26 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.mad.weatherwear.screens.authentication.AuthViewModel
+import com.mad.weatherwear.screens.authentication.Email
+import com.mad.weatherwear.screens.authentication.Password
 import com.mad.weatherwear.screens.authentication.SignInScreen
 import com.mad.weatherwear.screens.authentication.SignUpScreen
 import com.mad.weatherwear.screens.home.HomeScreen
@@ -27,6 +36,7 @@ import com.mad.weatherwear.screens.profile.ProfileScreen
 import com.mad.weatherwear.screens.profile.ProfileViewModel
 import com.mad.weatherwear.screens.weather.WeatherScreen
 import com.mad.weatherwear.screens.weather.WeatherViewModel
+import com.mad.weatherwear.shared.ui.AuthScreenLayout
 import com.mad.weatherwear.ui.theme.WeatherWearTheme
 
 class MainActivity : ComponentActivity() {
@@ -63,7 +73,11 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier.padding(innerPadding)
                     ) {
                         composable("signin") {
-                            SignInScreen(
+                            var emailInput by remember { mutableStateOf("") }
+                            var passwordInput by remember { mutableStateOf("") }
+                            var formErrorMessage by remember { mutableStateOf<String?>(null) }
+
+                            /*SignInScreen(
                                 authError = authError,
                                 signIn = { email, password ->
                                     authViewModel.signIn(email, password)
@@ -76,6 +90,35 @@ class MainActivity : ComponentActivity() {
                                         popUpTo("signin") { inclusive = true }
                                     }
                                 }
+                            )*/
+
+                            AuthScreenLayout(
+                                titleText = "Sign In",
+                                subTitleText = "Welcome back!",
+                                emailInput = emailInput,
+                                onEmailInputChange = { emailInput = it },
+                                passwordInput = passwordInput,
+                                onPasswordInputChange = { passwordInput = it },
+                                buttonText = "Sign In",
+                                formErrorMessage = formErrorMessage,
+                                onButtonClick = {
+                                    formErrorMessage = null
+                                    if (!Email.validate(emailInput)) {
+                                        formErrorMessage = "Invalid email format"
+                                    } else if (!Password.validate(passwordInput)) {
+                                        formErrorMessage =
+                                            "Password must be at least 8 characters, including letters and numbers."
+                                    } else {
+                                        authViewModel.signIn(
+                                            Email(emailInput),
+                                            Password(passwordInput)
+                                        )
+                                    }
+                                    println("Error: $authError")
+                                },
+                                navigationText = "Don't have an account? Sign Up",
+                                onNavigationClick = { navController.navigate("signup") },
+                                authError = authError,
                             )
                         }
                         composable("signup") {

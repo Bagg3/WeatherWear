@@ -20,6 +20,11 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -38,7 +43,7 @@ import com.mad.weatherwear.ui.theme.TextPrimary
 fun AuthScreenLayout(
     modifier: Modifier = Modifier,
     titleText: String,
-    subTitleText:String,
+    subTitleText: String,
     emailInput: String,
     onEmailInputChange: (String) -> Unit,
     passwordInput: String,
@@ -47,7 +52,13 @@ fun AuthScreenLayout(
     onButtonClick: () -> Unit,
     navigationText: String = "Don't have an account? Sign Up",
     onNavigationClick: () -> Unit,
+    formErrorMessage: String? = null,
+    authError: String? = null,
 ) {
+    LaunchedEffect(authError) {
+        println("Auth error: $authError")
+    }
+
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -84,7 +95,7 @@ fun AuthScreenLayout(
                 .align(Alignment.BottomCenter),
             verticalArrangement = Arrangement.SpaceBetween,
             horizontalAlignment = Alignment.CenterHorizontally
-        ){
+        ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 TextField(
                     singleLine = true,
@@ -104,7 +115,6 @@ fun AuthScreenLayout(
             }
             Row(verticalAlignment = Alignment.CenterVertically) {
                 TextField(
-                    passwordInput = true,
                     singleLine = true,
                     value = passwordInput,
                     onValueChange = onPasswordInputChange,
@@ -119,7 +129,14 @@ fun AuthScreenLayout(
                         unfocusedIndicatorColor = Color.Transparent,
                     ),
                     placeholder = { Text("Password") },
-                    )
+                )
+            }
+            formErrorMessage?.let {
+                Text(
+                    text = it,
+                    color = Color.Red, // Bright red color for the error message
+                    modifier = Modifier.padding(vertical = 4.dp)
+                )
             }
             Button(onClick = onButtonClick,
                 colors = ButtonDefaults.buttonColors(
