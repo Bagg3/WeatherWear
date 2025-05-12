@@ -8,18 +8,14 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -28,8 +24,6 @@ import androidx.navigation.compose.rememberNavController
 import com.mad.weatherwear.screens.authentication.AuthViewModel
 import com.mad.weatherwear.screens.authentication.Email
 import com.mad.weatherwear.screens.authentication.Password
-import com.mad.weatherwear.screens.authentication.SignInScreen
-import com.mad.weatherwear.screens.authentication.SignUpScreen
 import com.mad.weatherwear.screens.home.HomeScreen
 import com.mad.weatherwear.screens.outfit.OutfitScreen
 import com.mad.weatherwear.screens.profile.ProfileScreen
