@@ -8,3 +8,10 @@ data class WeatherData(
     val description: String,
     val icon: String
 )
+
+data class ForecastItem(
+    val time: String,
+    val temperature: Double,
+    val description: String,
+    val icon: String
+)

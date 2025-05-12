@@ -11,12 +11,6 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-data class ForecastItem(
-    val time: String,
-    val temperature: Double,
-    val description: String,
-    val icon: String
-)
 
 class WeatherService(private val apiKey: String) {
     suspend fun getWeatherData(latitude: Double, longitude: Double): WeatherData? {

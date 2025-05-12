@@ -36,7 +36,7 @@ fun ScreenLayout(
     modifier: Modifier = Modifier,
     titleText: String,
     temperatureText: String,
-    weatherConditionText: String,
+    weatherConditionText: String? = null,
     imageId: String? = null,
     dynamicContent: @Composable ColumnScope.() -> Unit
 ) {
@@ -77,7 +77,9 @@ fun ScreenLayout(
                     AsyncImage(
                         model = "https://openweathermap.org/img/wn/${imageId}@2x.png",
                         contentDescription = "Weather Icon",
-                        modifier = Modifier.size(40.dp),
+                        modifier = Modifier
+                            .size(160.dp)
+                            .align(alignment = Alignment.Center),
                         contentScale = ContentScale.Fit
                     )
                 }
@@ -111,12 +113,14 @@ fun ScreenLayout(
                         color = TextPrimary,
                         textAlign = TextAlign.Center,
                     )
-                    Text(
-                        text = weatherConditionText,
-                        style = Typography.labelLarge,
-                        color = TextPrimary,
-                        textAlign = TextAlign.Center,
-                    )
+                    if (weatherConditionText != null) {
+                        Text(
+                            text = weatherConditionText,
+                            style = Typography.labelLarge,
+                            color = TextPrimary,
+                            textAlign = TextAlign.Center,
+                        )
+                    }
                 }
             }
         }

@@ -23,4 +23,12 @@ class FireStorePreferenceService : PreferenceService {
             coldSensitivity = preference.coldSensitivity
         )
     }
+
+    override suspend fun updatePreference(userId: String, coldSensitivity: Int) {
+        val preferenceFS = PreferenceFS(userId, coldSensitivity)
+        db.collection(PREFERENCE_COLLECTION)
+            .document(userId)
+            .set(preferenceFS)
+            .await()
+    }
 }

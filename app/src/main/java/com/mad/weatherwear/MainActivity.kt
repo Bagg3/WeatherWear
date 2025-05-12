@@ -24,6 +24,7 @@ import com.mad.weatherwear.screens.authentication.SignUpScreen
 import com.mad.weatherwear.screens.home.HomeScreen
 import com.mad.weatherwear.screens.outfit.OutfitScreen
 import com.mad.weatherwear.screens.profile.ProfileScreen
+import com.mad.weatherwear.screens.profile.ProfileViewModel
 import com.mad.weatherwear.screens.weather.WeatherScreen
 import com.mad.weatherwear.screens.weather.WeatherViewModel
 import com.mad.weatherwear.ui.theme.WeatherWearTheme
@@ -31,7 +32,7 @@ import com.mad.weatherwear.ui.theme.WeatherWearTheme
 class MainActivity : ComponentActivity() {
     private val authViewModel: AuthViewModel by viewModels()
     private val weatherViewModel: WeatherViewModel by viewModels()
-
+    private val profileViewModel: ProfileViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -92,7 +93,9 @@ class MainActivity : ComponentActivity() {
                             HomeScreen(weatherViewModel = weatherViewModel)
                         }
                         composable(Screen.Profile.route) {
-                            ProfileScreen()
+                            ProfileScreen(
+                                authViewModel = authViewModel,
+                            )
                         }
 
                         composable(Screen.Weather.route) {
@@ -100,14 +103,17 @@ class MainActivity : ComponentActivity() {
                         }
 
                         composable(Screen.Outfit.route) {
-                            OutfitScreen()
+                            OutfitScreen(
+                                weatherViewModel = weatherViewModel,
+                                profileViewModel = profileViewModel, userId = currentUser?.id ?: ""
+                            )
                         }
                     }
                 }
             }
         }
     }
-    
+
 }
 
 @Preview(showBackground = true)

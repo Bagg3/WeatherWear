@@ -55,7 +55,11 @@ fun WeatherScreen(
     ScreenLayout(
         titleText = "Forecast",
         temperatureText = weatherInfo?.temperature?.let { "${it.roundToInt()} °C" } ?: "Loading",
-        weatherConditionText = weatherInfo?.description?.capitalize(Locale.ROOT) ?: "Unknown",
+        weatherConditionText = weatherInfo?.description?.replaceFirstChar {
+            if (it.isLowerCase()) it.titlecase(
+                Locale.ROOT
+            ) else it.toString()
+        },
         imageId = weatherInfo?.icon
     ) {
         if (!hasPermission) {
@@ -134,7 +138,7 @@ fun ForecastItemRow(item: ForecastItem) {
     ) {
         // Time and Temperature in a single Text for conciseness
         Text(
-            text = "${item.time}  ${item.temperature.roundToInt()}°C",
+            text = "${item.time}:  ${item.temperature.roundToInt()}°C",
             style = MaterialTheme.typography.bodyLarge,
             fontWeight = FontWeight.Medium,
             modifier = Modifier.weight(1f)
