@@ -20,6 +20,11 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -33,6 +38,7 @@ import com.mad.weatherwear.ui.theme.Accent
 import com.mad.weatherwear.ui.theme.BgPrimary
 import com.mad.weatherwear.ui.theme.BgTertiary
 import com.mad.weatherwear.ui.theme.TextPrimary
+import com.mad.weatherwear.ui.theme.Typography
 
 @Composable
 fun AuthScreenLayout(
@@ -45,7 +51,7 @@ fun AuthScreenLayout(
     onPasswordInputChange: (String) -> Unit,
     buttonText: String = "Sign In",
     onButtonClick: () -> Unit,
-    navigationText: String = "Don't have an account? Sign Up",
+    navigationText: String = "Don't have an account? \n Sign Up",
     onNavigationClick: () -> Unit,
     formErrorMessage: String? = null,
     authError: String? = null,
@@ -83,14 +89,14 @@ fun AuthScreenLayout(
                 text = titleText,
                 color = TextPrimary,
                 textAlign = TextAlign.Center,
-                fontSize = 60.sp,
+                style = Typography.titleLarge,
             )
             Spacer(modifier = modifier.height(24.dp))
             Text(
                 text = subTitleText,
                 color = TextPrimary,
                 textAlign = TextAlign.Center,
-                fontSize = 20.sp,
+                style = Typography.titleMedium,
             )
             Spacer(modifier = modifier.height(24.dp))
         }
@@ -119,7 +125,7 @@ fun AuthScreenLayout(
                         focusedIndicatorColor = Color.Transparent,
                         unfocusedIndicatorColor = Color.Transparent,
                     ),
-                    placeholder = { Text("Email") },
+                    placeholder = { Text("Email", style = Typography.labelSmall) },
                 )
             }
             Row(verticalAlignment = Alignment.CenterVertically) {
@@ -140,12 +146,13 @@ fun AuthScreenLayout(
                         focusedIndicatorColor = Color.Transparent,
                         unfocusedIndicatorColor = Color.Transparent,
                     ),
-                    placeholder = { Text("Password") },
+                    placeholder = { Text("Password", style = Typography.labelSmall) },
                 )
             }
             displayedErrorMessage?.let {
                 Text(
                     text = it,
+                    style = Typography.labelSmall,
                     color = Color.Red, // Bright red color for the error message
                     modifier = Modifier.padding(vertical = 4.dp)
                 )
@@ -162,7 +169,11 @@ fun AuthScreenLayout(
             ) { Text(buttonText) }
 
             TextButton(onClick = onNavigationClick) {
-                Text(navigationText, color = Color.Black)
+                Text(
+                    text = navigationText,
+                    color = TextPrimary,
+                    style = Typography.labelSmall
+                )
             }
         }
     }
@@ -180,7 +191,7 @@ fun PreviewScreenLayout() {
         onPasswordInputChange = {},
         buttonText = "Login",
         onButtonClick = {},
-        navigationText = "Don’t have an account?",
+        navigationText = "Don’t have an account? Sign Up",
         onNavigationClick = {},
         formErrorMessage = null,
         authError = null,
