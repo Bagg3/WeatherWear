@@ -31,15 +31,17 @@ import com.mad.weatherwear.ui.theme.WeatherWearTheme
 class MainActivity : ComponentActivity() {
     private val authViewModel: AuthViewModel by viewModels()
     private val weatherViewModel: WeatherViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
 
         enableEdgeToEdge()
         setContent {
+            val currentUser by authViewModel.currentUser.collectAsState()
+            val authError by authViewModel.authError.collectAsState()
             WeatherWearTheme {
                 val navController = rememberNavController()
-                val currentUser by authViewModel.currentUser.collectAsState()
                 // Determine the start destination based on login state
                 val startDestination = if (currentUser == null) "signin" else Screen.Home.route
 
@@ -61,7 +63,12 @@ class MainActivity : ComponentActivity() {
                     ) {
                         composable("signin") {
                             SignInScreen(
-                                authViewModel = authViewModel,
+                                authError = authError,
+                                signIn = { email, password ->
+                                    authViewModel.signIn(email, password)
+                                },
+                                currentUser = currentUser,
+                                clearError = { authViewModel.clearError() },
                                 onNavigateToSignUp = { navController.navigate("signup") },
                                 onSignInSuccess = {
                                     navController.navigate(Screen.Home.route) {

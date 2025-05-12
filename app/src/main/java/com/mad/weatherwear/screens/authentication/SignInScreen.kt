@@ -13,7 +13,6 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -23,20 +22,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
 fun SignInScreen(
-    authViewModel: AuthViewModel,
+    authError: String?,
+    currentUser: User?,
+    clearError: () -> Unit,
+    signIn: (Email, Password) -> Unit,
     onNavigateToSignUp: () -> Unit,
     onSignInSuccess: () -> Unit
 ) {
     var emailInput by remember { mutableStateOf("testmail@uni.au.dk") }
     var passwordInput by remember { mutableStateOf("Test1234") }
     var formErrorMessage by remember { mutableStateOf<String?>(null) }
-
-    val authError by authViewModel.authError.collectAsState()
-    val currentUser by authViewModel.currentUser.collectAsState()
 
     LaunchedEffect(currentUser) {
         if (currentUser != null) {
@@ -47,7 +47,7 @@ fun SignInScreen(
     LaunchedEffect(authError) {
         if (authError != null) {
             formErrorMessage = authError
-            authViewModel.clearError() // Clear error after displaying
+            clearError() // Clear error after displaying
         }
     }
 
@@ -95,7 +95,7 @@ fun SignInScreen(
             } else if (!Password.validate(passwordInput)) {
                 formErrorMessage = "Password must be at least 8 characters, including letters and numbers."
             } else {
-                authViewModel.signIn(Email(emailInput), Password(passwordInput))
+                signIn(Email(emailInput), Password(passwordInput))
             }
         }) { Text("Sign In") }
 
@@ -103,4 +103,17 @@ fun SignInScreen(
             Text("Don't have an account? Sign Up")
         }
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun SignInScreenPreview() {
+    SignInScreen(
+        authError = null,
+        currentUser = null,
+        clearError = {},
+        signIn = { _, _ -> },
+        onNavigateToSignUp = {},
+        onSignInSuccess = {}
+    )
 }
