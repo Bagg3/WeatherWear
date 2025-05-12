@@ -24,6 +24,8 @@ import androidx.navigation.compose.rememberNavController
 import com.mad.weatherwear.screens.authentication.AuthViewModel
 import com.mad.weatherwear.screens.authentication.Email
 import com.mad.weatherwear.screens.authentication.Password
+import com.mad.weatherwear.screens.authentication.SignInScreen
+import com.mad.weatherwear.screens.authentication.SignUpScreen
 import com.mad.weatherwear.screens.home.HomeScreen
 import com.mad.weatherwear.screens.outfit.OutfitScreen
 import com.mad.weatherwear.screens.profile.ProfileScreen
@@ -67,71 +69,25 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier.padding(innerPadding)
                     ) {
                         composable("signin") {
-                            var emailInput by remember { mutableStateOf("") }
-                            var passwordInput by remember { mutableStateOf("") }
-                            var formErrorMessage by remember { mutableStateOf<String?>(null) }
-
-                            AuthScreenLayout(
-                                titleText = "Sign In",
-                                subTitleText = "Welcome back!",
-                                emailInput = emailInput,
-                                onEmailInputChange = { emailInput = it },
-                                passwordInput = passwordInput,
-                                onPasswordInputChange = { passwordInput = it },
-                                buttonText = "Sign In",
-                                formErrorMessage = formErrorMessage,
-                                onButtonClick = {
-                                    formErrorMessage = null
-                                    if (!Email.validate(emailInput)) {
-                                        formErrorMessage = "Invalid email format"
-                                    } else if (!Password.validate(passwordInput)) {
-                                        formErrorMessage =
-                                            "Password must be at least 8 characters, including letters and numbers."
-                                    } else {
-                                        authViewModel.signIn(
-                                            Email(emailInput),
-                                            Password(passwordInput)
-                                        )
+                            SignInScreen(
+                                authViewModel = authViewModel,
+                                onNavigateToSignUp = { navController.navigate("signup") },
+                                onSignInSuccess = {
+                                    navController.navigate(Screen.Home.route) {
+                                        popUpTo("signin") { inclusive = true }
                                     }
-                                },
-                                navigationText = "Don't have an account? Sign Up",
-                                onNavigationClick = { navController.navigate("signup") },
-                                authError = authError,
-                                clearError = { authViewModel.clearError() } // Clear the error after displaying
+                                }
                             )
                         }
                         composable("signup") {
-                            var emailInput by remember { mutableStateOf("") }
-                            var passwordInput by remember { mutableStateOf("") }
-                            var formErrorMessage by remember { mutableStateOf<String?>(null) }
-
-                            AuthScreenLayout(
-                                titleText = "Sign Up",
-                                subTitleText = "Create your account!",
-                                emailInput = emailInput,
-                                onEmailInputChange = { emailInput = it },
-                                passwordInput = passwordInput,
-                                onPasswordInputChange = { passwordInput = it },
-                                buttonText = "Sign Up",
-                                formErrorMessage = formErrorMessage,
-                                onButtonClick = {
-                                    formErrorMessage = null
-                                    if (!Email.validate(emailInput)) {
-                                        formErrorMessage = "Invalid email format"
-                                    } else if (!Password.validate(passwordInput)) {
-                                        formErrorMessage =
-                                            "Password must be at least 8 characters, including letters and numbers."
-                                    } else {
-                                        authViewModel.signUp(
-                                            Email(emailInput),
-                                            Password(passwordInput)
-                                        )
+                            SignUpScreen(
+                                authViewModel = authViewModel,
+                                onNavigateToSignIn = { navController.navigate("signin") },
+                                onSignUpSuccess = {
+                                    navController.navigate(Screen.Home.route) {
+                                        popUpTo("signin") { inclusive = true }
                                     }
-                                },
-                                navigationText = "Already have an account? Sign In",
-                                onNavigationClick = { navController.navigate("signin") },
-                                authError = authError,
-                                clearError = { authViewModel.clearError() } // Clear the error after displaying
+                                }
                             )
                         }
                         composable(Screen.Home.route) {

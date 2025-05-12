@@ -33,7 +33,6 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.mad.weatherwear.ui.theme.Accent
 import com.mad.weatherwear.ui.theme.BgPrimary
 import com.mad.weatherwear.ui.theme.BgTertiary
@@ -44,7 +43,7 @@ import com.mad.weatherwear.ui.theme.Typography
 fun AuthScreenLayout(
     modifier: Modifier = Modifier,
     titleText: String,
-    subTitleText:String,
+    subTitleText: String,
     emailInput: String,
     onEmailInputChange: (String) -> Unit,
     passwordInput: String,
@@ -126,6 +125,7 @@ fun AuthScreenLayout(
                         unfocusedIndicatorColor = Color.Transparent,
                     ),
                     placeholder = { Text("Email", style = Typography.labelSmall) },
+                    textStyle = Typography.bodyMedium
                 )
             }
             Row(verticalAlignment = Alignment.CenterVertically) {
@@ -147,6 +147,7 @@ fun AuthScreenLayout(
                         unfocusedIndicatorColor = Color.Transparent,
                     ),
                     placeholder = { Text("Password", style = Typography.labelSmall) },
+                    textStyle = Typography.bodyMedium
                 )
             }
             displayedErrorMessage?.let {
@@ -154,10 +155,11 @@ fun AuthScreenLayout(
                     text = it,
                     style = Typography.labelSmall,
                     color = Color.Red, // Bright red color for the error message
-                    modifier = Modifier.padding(vertical = 4.dp)
+                    modifier = Modifier.padding(vertical = 4.dp),
                 )
             }
-            Button(onClick = onButtonClick,
+            Button(
+                onClick = onButtonClick,
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Accent,
                     contentColor = Color.Black
