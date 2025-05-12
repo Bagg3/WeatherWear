@@ -68,7 +68,8 @@ fun HomeScreen(weatherViewModel: WeatherViewModel) {
                     modifier = Modifier.padding(16.dp)
                 )
             }
-        } else if (isLoading) {
+        } else if (isLoading && weatherInfo == null) {
+            // Only show loading indicator when there's no cached data
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
