@@ -20,11 +20,6 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -43,7 +38,7 @@ import com.mad.weatherwear.ui.theme.TextPrimary
 fun AuthScreenLayout(
     modifier: Modifier = Modifier,
     titleText: String,
-    subTitleText: String,
+    subTitleText:String,
     emailInput: String,
     onEmailInputChange: (String) -> Unit,
     passwordInput: String,
@@ -103,9 +98,9 @@ fun AuthScreenLayout(
             modifier = modifier
                 .fillMaxWidth()
                 .fillMaxHeight(0.66f)
-                .padding(16.dp)
+                .padding(horizontal = 32.dp, vertical = 16.dp)
                 .align(Alignment.BottomCenter),
-            verticalArrangement = Arrangement.SpaceBetween,
+            verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
@@ -116,11 +111,13 @@ fun AuthScreenLayout(
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
                     modifier = modifier
                         .weight(0.7f)
-                        .padding(8.dp),
+                        .padding(16.dp),
                     shape = CircleShape,
                     colors = TextFieldDefaults.colors(
-                        focusedIndicatorColor = Color.LightGray,
-                        unfocusedIndicatorColor = Color.White,
+                        focusedContainerColor = BgPrimary,
+                        unfocusedContainerColor = BgPrimary,
+                        focusedIndicatorColor = Color.Transparent,
+                        unfocusedIndicatorColor = Color.Transparent,
                     ),
                     placeholder = { Text("Email") },
                 )
@@ -134,9 +131,12 @@ fun AuthScreenLayout(
                     visualTransformation = PasswordVisualTransformation(),
                     modifier = Modifier
                         .weight(0.7f)
-                        .padding(8.dp),
+                        .padding(16.dp),
                     shape = CircleShape,
+
                     colors = TextFieldDefaults.colors(
+                        focusedContainerColor = BgPrimary,
+                        unfocusedContainerColor = BgPrimary,
                         focusedIndicatorColor = Color.Transparent,
                         unfocusedIndicatorColor = Color.Transparent,
                     ),
@@ -154,7 +154,12 @@ fun AuthScreenLayout(
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Accent,
                     contentColor = Color.Black
-                )) { Text(buttonText) }
+                ),
+                modifier = modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 64.dp, vertical = 16.dp)
+                    .height(50.dp),
+            ) { Text(buttonText) }
 
             TextButton(onClick = onNavigationClick) {
                 Text(navigationText, color = Color.Black)
