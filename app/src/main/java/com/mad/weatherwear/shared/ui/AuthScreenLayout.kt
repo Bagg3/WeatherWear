@@ -54,9 +54,21 @@ fun AuthScreenLayout(
     onNavigationClick: () -> Unit,
     formErrorMessage: String? = null,
     authError: String? = null,
+    clearError: () -> Unit
 ) {
+    var displayedErrorMessage by remember { mutableStateOf(formErrorMessage) }
+
     LaunchedEffect(authError) {
-        println("Auth error: $authError")
+        if (authError != null) {
+            displayedErrorMessage = authError
+            clearError()
+        }
+    }
+
+    LaunchedEffect(formErrorMessage) {
+        if (formErrorMessage != null) {
+            displayedErrorMessage = formErrorMessage
+        }
     }
 
     Box(
@@ -131,7 +143,7 @@ fun AuthScreenLayout(
                     placeholder = { Text("Password") },
                 )
             }
-            formErrorMessage?.let {
+            displayedErrorMessage?.let {
                 Text(
                     text = it,
                     color = Color.Red, // Bright red color for the error message
@@ -165,5 +177,8 @@ fun PreviewScreenLayout() {
         onButtonClick = {},
         navigationText = "Don’t have an account?",
         onNavigationClick = {},
+        formErrorMessage = null,
+        authError = null,
+        clearError = {}
     )
 }

@@ -114,11 +114,11 @@ class MainActivity : ComponentActivity() {
                                             Password(passwordInput)
                                         )
                                     }
-                                    println("Error: $authError")
                                 },
                                 navigationText = "Don't have an account? Sign Up",
                                 onNavigationClick = { navController.navigate("signup") },
                                 authError = authError,
+                                clearError = { authViewModel.clearError() } // Clear the error after displaying
                             )
                         }
                         composable("signup") {
