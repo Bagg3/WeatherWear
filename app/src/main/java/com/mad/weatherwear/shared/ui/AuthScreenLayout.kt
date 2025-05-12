@@ -38,7 +38,7 @@ import com.mad.weatherwear.ui.theme.TextPrimary
 fun AuthScreenLayout(
     modifier: Modifier = Modifier,
     titleText: String,
-    subTitleText:String,
+    subTitleText: String,
     emailInput: String,
     onEmailInputChange: (String) -> Unit,
     passwordInput: String,
@@ -80,11 +80,11 @@ fun AuthScreenLayout(
             modifier = modifier
                 .fillMaxWidth()
                 .fillMaxHeight(0.66f)
-                .padding(16.dp)
+                .padding(horizontal = 32.dp, vertical = 16.dp)
                 .align(Alignment.BottomCenter),
-            verticalArrangement = Arrangement.SpaceBetween,
+            verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
-        ){
+        ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 TextField(
                     singleLine = true,
@@ -93,18 +93,19 @@ fun AuthScreenLayout(
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
                     modifier = modifier
                         .weight(0.7f)
-                        .padding(8.dp),
+                        .padding(16.dp),
                     shape = CircleShape,
                     colors = TextFieldDefaults.colors(
-                        focusedIndicatorColor = Color.LightGray,
-                        unfocusedIndicatorColor = Color.White,
+                        focusedContainerColor = BgPrimary,
+                        unfocusedContainerColor = BgPrimary,
+                        focusedIndicatorColor = Color.Transparent,
+                        unfocusedIndicatorColor = Color.Transparent,
                     ),
                     placeholder = { Text("Email") },
                 )
             }
             Row(verticalAlignment = Alignment.CenterVertically) {
                 TextField(
-                    passwordInput = true,
                     singleLine = true,
                     value = passwordInput,
                     onValueChange = onPasswordInputChange,
@@ -112,20 +113,34 @@ fun AuthScreenLayout(
                     visualTransformation = PasswordVisualTransformation(),
                     modifier = Modifier
                         .weight(0.7f)
-                        .padding(8.dp),
+                        .padding(16.dp),
                     shape = CircleShape,
+
                     colors = TextFieldDefaults.colors(
+                        focusedContainerColor = BgPrimary,
+                        unfocusedContainerColor = BgPrimary,
                         focusedIndicatorColor = Color.Transparent,
                         unfocusedIndicatorColor = Color.Transparent,
                     ),
-                    placeholder = { Text("Password") },
-                    )
+
+                    placeholder = {
+                        Text(
+                            "Password"
+                        )
+                    },
+                )
             }
-            Button(onClick = onButtonClick,
+            Button(
+                onClick = onButtonClick,
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Accent,
                     contentColor = Color.Black
-                )) { Text(buttonText) }
+                ),
+                modifier = modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 64.dp, vertical = 16.dp)
+                    .height(50.dp),
+            ) { Text(buttonText) }
 
             TextButton(onClick = onNavigationClick) {
                 Text(navigationText, color = Color.Black)
