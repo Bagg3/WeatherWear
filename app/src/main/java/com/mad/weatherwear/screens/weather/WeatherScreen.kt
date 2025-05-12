@@ -55,7 +55,11 @@ fun WeatherScreen(
     ScreenLayout(
         titleText = "Forecast",
         temperatureText = weatherInfo?.temperature?.let { "${it.roundToInt()} °C" } ?: "Loading",
-        weatherConditionText = weatherInfo?.description?.capitalize(Locale.ROOT) ?: "Unknown",
+        weatherConditionText = weatherInfo?.description?.replaceFirstChar {
+            if (it.isLowerCase()) it.titlecase(
+                Locale.ROOT
+            ) else it.toString()
+        },
         imageId = weatherInfo?.icon
     ) {
         if (!hasPermission) {

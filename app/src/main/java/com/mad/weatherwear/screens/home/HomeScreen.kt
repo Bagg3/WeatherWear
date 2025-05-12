@@ -54,7 +54,7 @@ fun HomeScreen(weatherViewModel: WeatherViewModel) {
             ?: "Loading weather",
         weatherConditionText = weatherInfo?.description?.replaceFirstChar {
             if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString()
-        } ?: "Unknown"
+        }
     ) {
         if (!hasPermission) {
             Column(
