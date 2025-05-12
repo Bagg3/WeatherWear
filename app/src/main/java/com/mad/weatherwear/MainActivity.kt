@@ -85,7 +85,9 @@ class MainActivity : ComponentActivity() {
                             HomeScreen(weatherViewModel = weatherViewModel)
                         }
                         composable(Screen.Profile.route) {
-                            ProfileScreen()
+                            ProfileScreen(
+                                authViewModel = authViewModel,
+                            )
                         }
 
                         composable(Screen.Weather.route) {
@@ -100,7 +102,7 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-    
+
 }
 
 @Preview(showBackground = true)

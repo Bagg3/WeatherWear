@@ -134,7 +134,7 @@ fun ForecastItemRow(item: ForecastItem) {
     ) {
         // Time and Temperature in a single Text for conciseness
         Text(
-            text = "${item.time}  ${item.temperature.roundToInt()}°C",
+            text = "${item.time}:  ${item.temperature.roundToInt()}°C",
             style = MaterialTheme.typography.bodyLarge,
             fontWeight = FontWeight.Medium,
             modifier = Modifier.weight(1f)
