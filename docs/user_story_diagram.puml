@@ -1,0 +1,27 @@
+@startuml usecase_diagram
+left to right direction
+actor User
+actor OpenWeatherMapAPI
+actor FirebaseAuth
+actor FirebaseFirestore
+
+rectangle WeatherWear {
+  (Login)
+  (Register)
+  (View Weather)
+  (Receive Outfit Recommendations)
+  (Customize Preferences)
+}
+
+User --> (Login)
+Login --> (FirebaseAuth)
+User --> (Register)
+Register --> (FirebaseAuth)
+User --> (View Weather)
+(View Weather) --> (OpenWeatherMapAPI)
+User --> (Receive Outfit Recommendations)
+(Receive Outfit Recommendations) --> (FirebaseFirestore)
+(Receive Outfit Recommendations) --> (OpenWeatherMapAPI)
+User --> (Customize Preferences)
+(Customize Preferences) --> (FirebaseFirestore)
+@enduml

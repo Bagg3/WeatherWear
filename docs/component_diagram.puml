@@ -1,0 +1,19 @@
+@startuml component_diagram
+package "WeatherWear App" {
+  [UI Layer] --> [ViewModel]
+  [ViewModel] --> [Weather API Service]
+  [ViewModel] --> [Firebase Auth]
+  [ViewModel] --> [Firebase Firestore]
+  [ViewModel] --> [Google Location Service]
+}
+
+database "Firebase Firestore" as DB
+cloud "OpenWeatherMap API" as API
+rectangle "Google Location Service" as GPS
+
+[Firebase Firestore] --> DB
+[Firebase Auth] --> DB
+[Weather API Service] --> API
+[Google Location Service] --> GPS
+
+@enduml

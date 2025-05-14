@@ -11,9 +11,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -22,8 +19,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.mad.weatherwear.screens.authentication.AuthViewModel
-import com.mad.weatherwear.screens.authentication.Email
-import com.mad.weatherwear.screens.authentication.Password
 import com.mad.weatherwear.screens.authentication.SignInScreen
 import com.mad.weatherwear.screens.authentication.SignUpScreen
 import com.mad.weatherwear.screens.home.HomeScreen
@@ -32,7 +27,6 @@ import com.mad.weatherwear.screens.profile.ProfileScreen
 import com.mad.weatherwear.screens.profile.ProfileViewModel
 import com.mad.weatherwear.screens.weather.WeatherScreen
 import com.mad.weatherwear.screens.weather.WeatherViewModel
-import com.mad.weatherwear.shared.ui.AuthScreenLayout
 import com.mad.weatherwear.ui.theme.WeatherWearTheme
 
 class MainActivity : ComponentActivity() {

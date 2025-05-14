@@ -1,0 +1,12 @@
+@startuml ui_diagram
+skinparam linetype ortho
+
+[Login Page] --> [Home Page]
+[Signup Page] --> [Home Page]
+
+[Home Page] --> [Weather Page]
+[Home Page] --> [Wear Recommendation Page]
+[Home Page] --> [User Settings Page]
+
+
+@enduml
